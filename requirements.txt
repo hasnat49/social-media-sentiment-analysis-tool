@@ -1,0 +1,8 @@
+flask
+pymongo
+requests
+nltk
+emoji
+transformers
+twikit
+torch
