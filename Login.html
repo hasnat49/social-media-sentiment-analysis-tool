@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sentitrack.com</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background-color: #f4f7fa;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .navbar {
+      background-color: #0a1172;
+      padding: 10px 20px;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .navbar .marquee {
+      width: 100%;
+      color: #fff;
+      font-weight: bold;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    .navbar .marquee span {
+      display: inline-block;
+      padding-left: 100%;
+      animation: scroll-left 10s linear infinite;
+    }
+
+    @keyframes scroll-left {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
+    }
+
+    .container {
+      display: flex;
+      flex: 1;
+      flex-wrap: wrap;
+    }
+
+    .left-section, .right-section {
+      flex: 1 1 50%;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .left-section {
+      background: linear-gradient(#ffffff, #d9e4f5);
+      text-align: center;
+    }
+
+    .intro-text {
+      font-size: 18px;
+      color: #333;
+      max-width: 90%;
+    }
+
+    .right-section {
+      background: #fff;
+    }
+
+    .tab-buttons {
+      margin-bottom: 20px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .tab-buttons button,
+    .submit-btn {
+      background-color: #0a1172;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 20px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .tab-buttons button:hover,
+    .submit-btn:hover {
+      opacity: 0.85;
+      transform: scale(1.08);
+      background-color: #2f4fbb;
+      box-shadow: 0 8px 16px rgba(30, 58, 138, 0.3);
+    }
+
+    .form-container {
+      width: 100%;
+      max-width: 350px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+      width: 100%;
+      position: relative;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 10px 40px 10px 10px;
+      border: 2px solid #0a1172;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    .toggle-icon {
+      position: absolute;
+      right: 10px;
+      top: 70%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    footer {
+      background-color: #0a1172;
+      color: white;
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 30px;
+      text-align: left;
+    }
+
+    .footer-column h3 {
+      margin-bottom: 20px;
+      font-size: 1.2rem;
+    }
+
+    .footer-column ul {
+      list-style: none;
+    }
+
+    .footer-column ul li {
+      margin-bottom: 10px;
+    }
+
+    .footer-column a {
+      color: white;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .footer-column a:hover {
+      opacity: 0.8;
+    }
+
+    .copyright {
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      text-align: center;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 900px) {
+      .left-section, .right-section {
+        flex: 1 1 100%;
+        padding: 20px;
+      }
+
+      .intro-text {
+        font-size: 16px;
+      }
+    }
+
+    @media (max-width: 500px) {
+      .tab-buttons button,
+      .submit-btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <div class="marquee"><span>Your insights matter – Analyze, report, and grow for free! </span></div>
+  </div>
+
+  <div class="container">
+    <div class="left-section">
+      <div class="intro-text">
+        <h2>Welcome to Sentitrack - A Social Media Sentiment Analysis Tool</h2>
+        <p>Developed by Hasnat Rasool & Muhammad Madni — a tool that transforms raw posts into valuable insights using AI-powered analysis and real-time reporting.</p>
+      </div>
+    </div>
+
+    <div class="right-section">
+      <div class="tab-buttons">
+        <button onclick="showForm('login')">Login</button>
+        <button onclick="showForm('signup')">Sign Up</button>
+      </div>
+
+      <div class="form-container">
+        <!-- Login Form -->
+        <form id="login-form" action="/login" method="POST">
+          <div class="form-group">
+            <label for="login-email">Email</label>
+            <input type="email" id="login-email" name="email" required />
+          </div>
+          <div class="form-group">
+            <label for="login-password">Password</label>
+            <input type="password" id="login-password" name="password" required />
+            <span id="toggleLoginPassword" class="toggle-icon">👁️</span>
+          </div>
+          <button class="submit-btn" type="submit">Login</button>
+        </form>
+
+        <!-- Sign Up Form -->
+        <form id="signup-form" class="hidden" action="/signup" method="POST">
+          <div class="form-group">
+            <label for="signup-email">Email</label>
+            <input type="email" id="signup-email" name="email" required />
+          </div>
+          <div class="form-group">
+            <label for="firstname">Username</label>
+            <input type="text" id="firstname" name="username" required />
+          </div>
+          <div class="form-group">
+            <label for="lastname">Name</label>
+            <input type="text" id="lastname" name="name" required />
+          </div>
+          <div class="form-group">
+            <label for="signup-password">Password</label>
+            <input type="password" id="signup-password" name="password" required />
+            <span id="toggleSignupPassword" class="toggle-icon">👁️</span>
+          </div>
+          <button class="submit-btn" type="submit">Sign Up</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-column">
+        <h3>Sentitrack</h3>
+        <p>AI-powered social media sentiment analysis for businesses of all sizes.</p>
+      </div>
+      <div class="footer-column">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="{{ url_for('dashboard') }}">Home</a></li>
+          <li><a href="{{ url_for('about') }}">About</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h3>Legal</h3>
+        <ul>
+          <li><a href="{{ url_for('privacy') }}">Privacy Policy</a></li>
+          <li><a href="{{ url_for('terms') }}">Terms of Services</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h3>Connect</h3>
+        <ul>
+          <li><a href="https://www.facebook.com/share/1Aopnv6DqA/"><img src="https://banner2.cleanpng.com/20201019/exe/transparent-social-networks-icon-facebook-icon-1713858189606.webp" width="24" alt="Facebook"></a></li>
+          <li><a href="mailto:sentitrackcontact@gmail.com"><img src="https://banner2.cleanpng.com/20190130/btz/kisspng-gmail-computer-icons-logo-google-portable-network-gmail-pictogram-gratis-van-papirus-apps-1713905800940.webp" width="24" alt="Email"></a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="copyright">
+      &copy; 2025 Sentitrack. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    function showForm(formType) {
+      const loginForm = document.getElementById('login-form');
+      const signupForm = document.getElementById('signup-form');
+
+      if (formType === 'login') {
+        loginForm.classList.remove('hidden');
+        signupForm.classList.add('hidden');
+      } else {
+        loginForm.classList.add('hidden');
+        signupForm.classList.remove('hidden');
+      }
+    }
+
+    // Toggle password visibility
+    document.getElementById("toggleLoginPassword").addEventListener("click", function() {
+      const passwordInput = document.getElementById("login-password");
+      if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        this.textContent = "🙈";
+      } else {
+        passwordInput.type = "password";
+        this.textContent = "👁️";
+      }
+    });
+
+    document.getElementById("toggleSignupPassword").addEventListener("click", function() {
+      const passwordInput = document.getElementById("signup-password");
+      if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        this.textContent = "🙈";
+      } else {
+        passwordInput.type = "password";
+        this.textContent = "👁️";
+      }
+    });
+  </script>
+</body>
+</html>

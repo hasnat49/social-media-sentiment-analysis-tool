@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Sentitrack</title>
+    <style>
+        /* Global Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f4f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .navbar {
+            background-color: #0a1172;
+            padding: 15px 20px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 20px;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+        
+        /* About Page Styles */
+        .about-header {
+            background: linear-gradient(135deg, #0a1172, #1a3a8f);
+            color: white;
+            text-align: center;
+            padding: 80px 20px;
+        }
+        
+        .about-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .about-header p {
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+        
+        .about-content {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+        
+        .mission-section, .team-section, .story-section {
+            margin-bottom: 60px;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #0a1172;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background: #0a1172;
+            margin: 15px auto;
+        }
+        
+        .mission-cards {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        
+        .mission-card {
+            flex: 1;
+            min-width: 250px;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .mission-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .mission-card h3 {
+            color: #0a1172;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+        
+        .mission-card i {
+            font-size: 2rem;
+            color: #0a1172;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+        
+        .team-members {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .team-member {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
+        
+        .member-image {
+            height: 250px;
+            overflow: hidden;
+        }
+        
+        .member-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .team-member:hover .member-image img {
+            transform: scale(1.05);
+        }
+        
+        .member-info {
+            padding: 20px;
+        }
+        
+        .member-info h3 {
+            color: #0a1172;
+            margin-bottom: 5px;
+        }
+        
+        .member-info p {
+            color: #666;
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            color: #0a1172;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            color: #1a3a8f;
+        }
+        
+        .story-section p {
+            margin-left: 20px;
+            margin-right: 20px;
+            margin-bottom: 10px;
+            text-align: justify;
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 40px auto;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 3px;
+            background: #0a1172;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -1.5px;
+        }
+        
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border: 3px solid #0a1172;
+            border-radius: 50%;
+            top: 15px;
+            z-index: 1;
+        }
+        
+        .left {
+            left: 0;
+        }
+        
+        .right {
+            left: 50%;
+        }
+        
+        .left::after {
+            right: -10px;
+        }
+        
+        .right::after {
+            left: -10px;
+        }
+        
+        .timeline-content {
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .timeline-content h3 {
+            color: #0a1172;
+            margin-bottom: 10px;
+        }
+        
+        .cta-section {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, #0a1172, #1a3a8f);
+            color: white;
+        }
+        
+        .cta-section h2 {
+            margin-bottom: 20px;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background: white;
+            color: #0a1172;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        footer {
+            background-color: #0a1172;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            text-align: left;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column a {
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-column a:hover {
+            opacity: 0.8;
+        }
+        
+        .copyright {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .mission-cards {
+                flex-direction: column;
+            }
+            
+            .timeline::after {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 0;
+            }
+            
+            .timeline-item::after {
+                left: 21px;
+            }
+            
+            .left::after, .right::after {
+                left: 21px;
+            }
+            
+            .right {
+                left: 0;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo">Sentitrack</div>
+        <ul class="nav-links">
+        
+        </ul>
+    </nav>
+
+    <!-- About Header -->
+    <header class="about-header">
+        <h1>About Sentitrack</h1>
+        <p>We're revolutionizing social media analysis with AI-powered sentiment tracking to help businesses understand their audience like never before.</p>
+    </header>
+
+    <!-- Main Content -->
+    <div class="about-content">
+        <!-- Mission Section -->
+        <section class="mission-section">
+            <h2 class="section-title">Our Mission</h2>
+            <div class="mission-cards">
+                <div class="mission-card">
+                    <i class="fas fa-bullseye"></i>
+                    <h3>Precision Analysis</h3>
+                    <p>Deliver accurate sentiment analysis using advanced NLP algorithms to uncover true customer feelings.</p>
+                </div>
+                <div class="mission-card">
+                    <i class="fas fa-rocket"></i>
+                    <h3>Empower Businesses</h3>
+                    <p>Provide actionable insights that help companies improve their products and customer relationships.</p>
+                </div>
+                <div class="mission-card">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Data Privacy</h3>
+                    <p>Maintain strict data protection standards while delivering powerful analytics.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Team Section -->
+       <section class="team-section" style="padding: 40px; text-align: center;">
+    <h2 class="section-title" style="margin-bottom: 30px; font-size: 2rem;">Meet Our Team</h2>
+    <div class="team-members" style="display: flex; justify-content: center; gap: 30px; flex-wrap: wrap;">
+
+        <!-- Team Member 1 -->
+        <div class="member-card" style="flex: 1; min-width: 300px; max-width: 400px; background: #f9f9f9; padding: 20px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); text-align: left;">
+            <h3 style="margin-bottom: 10px;">Hasnat Rasool</h3>
+            <p>
+                📧 Email: hasnatrasoolkhokher@gmail.com<br>
+                🎓 Session: Fall 2021<br><br>
+                "I am a dedicated student currently pursuing my studies in Computer Science, enrolled in the Fall 2021 session. I am committed to learning and growing academically while working on impactful projects as part of my degree program."
+            </p>
+        </div>
+
+        <!-- Team Member 2 -->
+        <div class="member-card" style="flex: 1; min-width: 300px; max-width: 400px; background: #f9f9f9; padding: 20px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); text-align: left;">
+            <h3 style="margin-bottom: 10px;">Muhammad Madni</h3>
+            <p>
+                📧 Email: lamhaa85@gmail.com<br>
+                🎓 Session: Fall 2021<br><br>
+                "I am currently pursuing a degree in Computer Science as part of the Fall 2021 session. My focus is on academic excellence and gaining valuable knowledge that will help me contribute effectively to technology and research projects during my studies."
+            </p>
+        </div>
+
+    </div>
+</section>
+
+
+        <!-- Story Section -->
+        <section class="story-section">
+            <h2 class="section-title">Our Story</h2>
+            <p>We are final year Computer Science students who built this sentiment analysis tool as part of our graduation project. What began as a simple assignment quickly turned into a meaningful platform, driven by our passion for technology and curiosity about public opinion on social media. With teamwork, learning, and late-night coding sessions, we transformed an idea into a tool that helps users make sense of online sentiment in a simple, insightful way.</p>
+
+            
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <h2>Ready to understand your audience better?</h2>
+        <p>"We’re in development and offering free membership for a limited time—join now before it becomes premium after launch!"
+</p>
+        <a href="{{ url_for('login') }}" class="cta-button">Get Started Now</a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Sentitrack</h3>
+                <p>AI-powered social media sentiment analysis for businesses of all sizes.</p>
+            </div>
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="{{ url_for('dashboard') }}">Home</a></li>
+                    <li><a href="{{ url_for('about') }}">About</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Legal</h3>
+                <ul>
+                    <li><a href="{{ url_for('privacy') }}">privacy policy</a></li>
+                    <li><a href="{{ url_for('terms') }}">terms of services</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Connect</h3>
+                <ul>
+                  <li><a href="https://www.facebook.com/share/1Aopnv6DqA/"><img src="https://banner2.cleanpng.com/20201019/exe/transparent-social-networks-icon-facebook-icon-1713858189606.webp" width="24" alt="Facebook"></a></li>
+          <li><a href="mailto:sentitrackcontact@gmail.com"><img src="https://banner2.cleanpng.com/20190130/btz/kisspng-gmail-computer-icons-logo-google-portable-network-gmail-pictogram-gratis-van-papirus-apps-1713905800940.webp" width="24" alt="Email"></a></li>
+              
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2025 Sentitrack. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+        // JavaScript for interactive elements
+        document.addEventListener('DOMContentLoaded', function() {
+            // Smooth scroll for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
+            // Mobile menu toggle (would need to add menu button in responsive view)
+            // Can be expanded based on needs
+        });
+
+        // Simple animation for mission cards
+        const missionCards = document.querySelectorAll('.mission-card');
+        
+        const animateCards = () => {
+            missionCards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 200 * index);
+            });
+        };
+
+        // Initialize card animations
+        missionCards.forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'all 0.5s ease';
+        });
+
+        setTimeout(animateCards, 500);
+    </script>
+</body>
+</html>

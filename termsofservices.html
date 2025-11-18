@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms of Service | Sentiment Analysis Tool</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      line-height: 1.6;
+    }
+    body {
+      background-color: #f4f7fa;
+      color: #333;
+    }
+    .navbar {
+            background-color: #0a1172;
+            padding: 15px 20px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 20px;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+    .container {
+      max-width: 1000px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+    h1 {
+      color: #0a1172;
+      margin-bottom: 20px;
+      border-bottom: 2px solid #0a1172;
+      padding-bottom: 10px;
+    }
+    h2 {
+      color: #0a1172;
+      margin: 25px 0 15px;
+      font-size: 1.3rem;
+    }
+    p, ul {
+      margin-bottom: 15px;
+    }
+    ul {
+      padding-left: 20px;
+    }
+    .last-updated {
+      font-style: italic;
+      color: #666;
+      margin-bottom: 30px;
+    }
+    footer {
+      background-color: #0a1172;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      margin-top: 50px;
+    }
+  </style>
+</head>
+<body>
+   <nav class="navbar">
+        <div class="logo">Sentitrack</div>
+        <ul class="nav-links">
+            
+            <li><a href="{{ url_for('about') }}">About</a></li>
+           
+        </ul>
+    </nav>
+
+  <div class="container">
+    <h1>Terms of Service</h1>
+    <p class="last-updated">Last Updated: June 15, 2024</p>
+
+    <h2>1. Acceptance of Terms</h2>
+    <p>By accessing or using the Sentiment Analysis Tool ("Service"), you agree to be bound by these Terms of Service ("Terms"). If you disagree with any part, you may not use the Service.</p>
+
+    <h2>2. Description of Service</h2>
+    <p>The Service provides AI-powered sentiment analysis of social media content, including:</p>
+    <ul>
+      <li>Text sentiment classification (positive/negative/neutral)</li>
+      <li>Basic analytics and reporting</li>
+      <li>Social media data fetching (where authorized)</li>
+    </ul>
+
+    <h2>3. User Responsibilities</h2>
+    <p>You agree to:</p>
+    <ul>
+      <li>Use the Service only for lawful purposes</li>
+      <li>Not submit sensitive personal data (SSN, health info, etc.)</li>
+      <li>Comply with all applicable social media platform terms</li>
+      <li>Maintain confidentiality of your account credentials</li>
+    </ul>
+
+    <h2>4. Data Privacy</h2>
+    <p>Our <a href="/privacy" style="color: #0a1172;">Privacy Policy</a> governs data collection and usage. By using the Service, you consent to:</p>
+    <ul>
+      <li>Processing of submitted text for analysis purposes</li>
+      <li>Temporary storage of analysis results</li>
+      <li>Anonymous usage data collection for service improvement</li>
+    </ul>
+
+    <h2>5. Intellectual Property</h2>
+    <p>All rights to the Service, including algorithms, UI, and documentation, remain our exclusive property. You retain rights to your submitted content.</p>
+
+    <h2>6. Limitations</h2>
+    <p>The Service does not guarantee:</p>
+    <ul>
+      <li>100% accuracy in sentiment classification</li>
+      <li>Uninterrupted availability</li>
+      <li>Compliance with specific industry regulations</li>
+    </ul>
+
+    <h2>7. Termination</h2>
+    <p>We may suspend or terminate access for:</p>
+    <ul>
+      <li>Violations of these Terms</li>
+      <li>Abusive usage (e.g., excessive API calls)</li>
+      <li>Legal compliance requirements</li>
+    </ul>
+
+    <h2>8. Changes to Terms</h2>
+    <p>We reserve the right to modify these Terms. Continued use after changes constitutes acceptance.</p>
+
+    <h2>9. Contact</h2>
+    <p>Questions? Contact us at <a href="mailto:sentitrackcontact@gmail.com" style="color: #0a1172;">sentitrackcontact@gmail.com</a></p>
+  </div>
+
+  <footer>
+    &copy; 2025 Sentitrack. All rights reserved.
+  </footer>
+</body>
+</html>

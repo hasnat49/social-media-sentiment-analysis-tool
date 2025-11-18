@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard | Sentiment Analysis Tool</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: #f4f7fa; }
+    .navbar { background-color: #0a1172; padding: 15px 20px; color: white; display: flex; justify-content: space-between; align-items: center; }
+    .navbar .logo { font-weight: bold; font-size: 1.3rem; }
+    .navbar nav a, .navbar nav span { color: white; text-decoration: none; margin-left: 20px; font-size: 0.95rem; cursor: pointer; }
+    .container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
+    .analysis-options { display: flex; flex-wrap: wrap; gap: 20px; margin-bottom: 40px; justify-content: center; }
+    .option-card { background: white; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); padding: 25px; flex: 1 1 300px; transition: transform 0.3s; border-top: 4px solid #0a1172; text-align: center; }
+    .option-card:hover { transform: translateY(-5px); }
+    .option-card h2 { color: #0a1172; margin-bottom: 15px; font-size: 1.4rem; }
+    .option-card p { color: #555; margin-bottom: 20px; line-height: 1.5; }
+    .btn { display: inline-block; padding: 12px 24px; background: #0a1172; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; text-decoration: none; font-size: 16px; transition: all 0.3s ease; }
+    .btn:hover { opacity: 0.85; transform: scale(1.08); background: #2f4fbb; box-shadow: 0 8px 16px rgba(30, 58, 138, 0.3); }
+    .chart-section { margin-top: 50px; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+    .chart-section h2 { color: #0a1172; margin-bottom: 20px; font-size: 1.8rem; text-align: center; }
+    canvas { max-width: 100%; margin: 0 auto; display: block; }
+    .dashboard-section { margin-top: 50px; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+    .dashboard-section h2 { color: #0a1172; margin-bottom: 20px; font-size: 1.8rem; text-align: center; }
+    .cards-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; justify-items: center; }
+    .card { background: #fff; border-radius: 10px; padding: 20px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); animation: fadeIn 1s ease-in-out; transition: transform 0.3s, opacity 0.3s; width: 100%; max-width: 300px; }
+    .card:hover { transform: scale(1.05); opacity: 0.9; }
+    .card h3 { color: #0a1172; margin-bottom: 15px; text-align: center; }
+    .card ul { list-style: none; color: #333; font-size: 14px; padding-left: 0; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    footer { background-color: #0a1172; color: white; padding: 40px 20px; text-align: center; margin-top: 40px; }
+    .footer-content { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; text-align: left; }
+    .footer-column h3 { margin-bottom: 20px; font-size: 1.2rem; }
+    .footer-column ul { list-style: none; }
+    .footer-column ul li { margin-bottom: 10px; }
+    .footer-column a { color: white; text-decoration: none; transition: all 0.3s ease; }
+    .footer-column a:hover { opacity: 0.8; }
+    .copyright { margin-top: 40px; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, 0.2); text-align: center; }
+    .sidebar { position: fixed; top: 0; right: -250px; width: 250px; height: 100%; background-color: #0a1172; color: white; padding: 20px; transition: right 0.3s ease-in-out; z-index: 1000; box-shadow: -2px 0 10px rgba(0,0,0,0.3); }
+    .sidebar.show { right: 0; }
+    .sidebar button#close1b { background: none; border: none; color: white; font-size: 24px; float: right; cursor: pointer; }
+    .sidebar a.login1 { display: block; margin-top: 50px; padding: 10px; background-color: #e74c3c; text-align: center; border-radius: 5px; text-decoration: none; color: white; font-weight: bold; }
+
+    @media (max-width: 768px) {
+      .analysis-options { flex-direction: column; gap: 20px; }
+      .navbar nav { display: none; }
+      .option-card { flex: 1 1 100%; }
+      .dashboard-section { padding: 20px; }
+      .chart-section { padding: 20px; }
+      footer { padding: 30px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <div class="navbar">
+    <div class="logo">Senti Track</div>
+    <nav>
+      <span id="account1">Account</span>
+    </nav>
+  </div>
+
+  <!-- Sidebar -->
+  <div id="sidebar" class="sidebar">
+    <button id="close1b">×</button>
+    <a href="{{ url_for('logout') }}" class="login1">Logout</a>
+  </div>
+
+  <!-- Main Content -->
+  <div class="container">
+    <div class="analysis-options">
+      <div class="option-card">
+        <h2>Manual Text Analysis</h2>
+        <p>Paste any text content to analyze sentiment in real-time.</p>
+        <a href="{{ url_for('analyze') }}" class="btn">Analyze Text</a>
+      </div>
+      <div class="option-card">
+    <h2>TwixSent</h2>
+    <p>Sentiment detection for tweets.</p>
+    <a href="{{ url_for('twitter_analysis') }}" class="btn">Connect & Analyze</a>
+</div>
+
+    </div>
+
+    <!-- Sentiment Analysis Chart -->
+    <div class="chart-section">
+      <h2>Sentiment Analysis Overview</h2>
+      <canvas id="sentimentChart"></canvas>
+    </div>
+
+    <!-- Live Market Insights -->
+    <div class="dashboard-section">
+      <h2>🌍 Live Market Insights</h2>
+      <hr>
+      <div class="cards-container">
+        <div class="card">
+          <h3>💰 Crypto Prices</h3>
+          <ul id="crypto-data"><li>Loading...</li></ul>
+        </div>
+        <div class="card">
+          <h3>📈 Stock Prices</h3>
+          <ul id="stock-data"><li>Loading...</li></ul>
+        </div>
+        <div class="card">
+          <h3>🏆 Top 5 Richest People</h3>
+          <ul id="richest-data"><li>Loading...</li></ul>
+        </div>
+        <div class="card">
+          <h3>📰 Latest Market News</h3>
+          <ul id="news-data"><li>Loading...</li></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-column">
+        <h3>Sentitrack</h3>
+        <p>AI-powered social media sentiment analysis.</p>
+      </div>
+      <div class="footer-column">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="{{ url_for('dashboard') }}">Home</a></li>
+          <li><a href="{{ url_for('about') }}">About</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h3>Legal</h3>
+        <ul>
+          <li><a href="{{ url_for('privacy') }}">Privacy Policy</a></li>
+          <li><a href="{{ url_for('terms') }}">Terms of Service</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h3>Connect</h3>
+        <ul>
+          <li><a href="https://www.facebook.com/share/1Aopnv6DqA/"><img src="https://banner2.cleanpng.com/20201019/exe/transparent-social-networks-icon-facebook-icon-1713858189606.webp" width="24" alt="Facebook"></a></li>
+          <li><a href="mailto:sentitrackcontact@gmail.com"><img src="https://banner2.cleanpng.com/20190130/btz/kisspng-gmail-computer-icons-logo-google-portable-network-gmail-pictogram-gratis-van-papirus-apps-1713905800940.webp" width="24" alt="Email"></a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="copyright">&copy; 2025 Sentitrack. All rights reserved.</div>
+  </footer>
+
+  <script>
+    // Sidebar toggle
+    const accountBtn = document.getElementById("account1");
+    const sidebar = document.getElementById("sidebar");
+    const closeBtn = document.getElementById("close1b");
+    accountBtn.addEventListener("click", () => sidebar.classList.add("show"));
+    closeBtn.addEventListener("click", () => sidebar.classList.remove("show"));
+
+    // Chart.js
+    const ctx = document.getElementById('sentimentChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        labels: ['Positive', 'Neutral', 'Negative'],
+        datasets: [{
+          data: [45, 30, 25],
+          backgroundColor: ['#28a745', '#ffc107', '#dc3545'],
+          hoverBackgroundColor: ['#218838', '#e0a800', '#c82333'],
+          borderWidth: 2
+        }]
+      },
+      options: { responsive: true, animation: { animateScale: true, animateRotate: true, duration: 2000 } }
+    });
+
+    // Fetch Live Market Data
+    async function fetchData() {
+      try {
+        const [cryptoRes, stockRes, richestRes, newsRes] = await Promise.all([
+          fetch('/api/crypto'),
+          fetch('/api/stocks'),
+          fetch('/api/richest'),
+          fetch('/api/news')
+        ]);
+
+        if (!cryptoRes.ok || !stockRes.ok || !richestRes.ok || !newsRes.ok) throw new Error("API response error");
+
+        const [cryptoData, stockData, richestData, newsData] = await Promise.all([
+          cryptoRes.json(),
+          stockRes.json(),
+          richestRes.json(),
+          newsRes.json()
+        ]);
+
+        document.getElementById('crypto-data').innerHTML = `
+          <li>Bitcoin: $${cryptoData.bitcoin || 'N/A'}</li>
+          <li>Ethereum: $${cryptoData.ethereum || 'N/A'}</li>
+          <li>Solana: $${cryptoData.solana || 'N/A'}</li>
+        `;
+        document.getElementById('stock-data').innerHTML = `
+          <li>Apple: $${stockData.apple || 'N/A'}</li>
+          <li>Tesla: $${stockData.tesla || 'N/A'}</li>
+          <li>S&P 500: ${stockData.sp500 || 'N/A'}</li>
+        `;
+        document.getElementById('richest-data').innerHTML = richestData.map(p => `<li>${p}</li>`).join('');
+        document.getElementById('news-data').innerHTML = newsData.map(n => `<li>${n}</li>`).join('');
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        document.getElementById('crypto-data').innerHTML = `<li>Error loading crypto data</li>`;
+        document.getElementById('stock-data').innerHTML = `<li>Error loading stock data</li>`;
+        document.getElementById('richest-data').innerHTML = `<li>Error loading data</li>`;
+        document.getElementById('news-data').innerHTML = `<li>Error loading news</li>`;
+      }
+    }
+    fetchData();
+    setInterval(fetchData, 60000);
+  </script>
+</body>
+</html>

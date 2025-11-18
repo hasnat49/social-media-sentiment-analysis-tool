@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    
+    body {
+      background-color: #f4f7fa;
+      color: #333;
+    }
+    
+    .navbar {
+      background-color: #0a1172;
+      font-weight: bold;
+      padding: 15px 20px;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .container {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+    
+    h1 {
+      color: #0a1172;
+      margin-bottom: 30px;
+      border-bottom: 2px solid #0a1172;
+      padding-bottom: 10px;
+    }
+    
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+    
+    .contact-info {
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    
+    .contact-info h2 {
+      color: #0a1172;
+      margin-bottom: 20px;
+    }
+    
+    .info-item {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 20px;
+    }
+    
+    .info-item i {
+      color: #0a1172;
+      font-size: 1.2rem;
+      margin-right: 15px;
+      margin-top: 3px;
+    }
+    
+    .contact-form {
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #555;
+    }
+    
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+    
+    .form-group textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+    
+    .submit-btn {
+      background: #0a1172;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.3s;
+    }
+    
+    .submit-btn:hover {
+      background: #090f5e;
+    }
+    
+    .success-message {
+      display: none;
+      background: #4CAF50;
+      color: white;
+      padding: 15px;
+      border-radius: 5px;
+      margin-top: 20px;
+      text-align: center;
+    }
+    
+    footer {
+      background-color: #0a1172;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      margin-top: 50px;
+    }
+    
+    @media (max-width: 768px) {
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <div class="logo">Sentitrack</div>
+    <nav>
+      <a href="index.html" style="color: white;">Home</a>
+    </nav>
+  </div>
+
+  <div class="container">
+    <h1>Contact Us</h1>
+    
+    <div class="contact-grid">
+      <div class="contact-info">
+        <h2>Get in Touch</h2>
+        
+        <div class="info-item">
+          <i class="fas fa-map-marker-alt"></i>
+          <div>
+            <h3>Address</h3>
+            <p>Buch Villas, Multan<br>Punjab, Pakistan</p>
+          </div>
+        </div>
+        
+        <div class="info-item">
+          <i class="fas fa-envelope"></i>
+          <div>
+            <h3>Email</h3>
+            <p>sentitrackcontact@gmail.com</p>
+          </div>
+        </div>
+        
+        <div class="info-item">
+          <i class="fas fa-phone-alt"></i>
+          <div>
+            <h3>Phone</h3>
+            <p>+92 3363465757<br>Mon-Fri: 9AM - 5PM PST</p>
+          </div>
+        </div>
+        
+        <div class="info-item">
+          <i class="fas fa-share-alt"></i>
+          <div>
+            <h3>Social Media</h3>
+            <p>
+              <a href="https://www.facebook.com/share/1Aopnv6DqA/"><img src="facebook.png" width="24" alt="facebook Icon"></a></li>
+            </p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="contact-form">
+        <h2>Send Feedback</h2>
+        <form id="feedbackForm">
+          <div class="form-group">
+            <label for="name">Your Name*</label>
+            <input type="text" id="name" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="email">Email*</label>
+            <input type="email" id="email" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="subject">Subject</label>
+            <select id="subject">
+              <option value="feedback">General Feedback</option>
+              <option value="bug">Bug Report</option>
+              <option value="feature">Feature Request</option>
+        
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="message">Message*</label>
+            <textarea id="message" required></textarea>
+          </div>
+          
+          <button type="submit" class="submit-btn">Send Message</button>
+          
+          <div id="successMessage" class="success-message">
+            <i class="fas fa-check-circle"></i> Thank you! Your message has been sent.
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 Sentiment Analysis Tool. All Rights Reserved.
+  </footer>
+
+  <script>
+    document.getElementById('feedbackForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Simulate form submission (replace with actual AJAX call)
+      setTimeout(function() {
+        document.getElementById('successMessage').style.display = 'block';
+        document.getElementById('feedbackForm').reset();
+        
+        // Hide success message after 5 seconds
+        setTimeout(function() {
+          document.getElementById('successMessage').style.display = 'none';
+        }, 5000);
+      }, 1000);
+    });
+  </script>
+</body>
+</html>
